@@ -102,7 +102,20 @@ app.get("/",function(req,res){
 
 //register page
 app.get("/register",function(req,res){
-  res.render("register");
+  if(req.isAuthenticated()){
+    const role = req.user.role;
+    if(role == "User"){
+      res.redirect("/userdashboard");
+    }
+
+    else{
+      res.redirect("/agencydashboard");
+    }
+  }
+  else{
+    res.render("register");
+  }
+  
 });
 
 
